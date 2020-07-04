@@ -1,6 +1,6 @@
 export function getFormBody(params) {
 	let formBody = [];
-	for (let property of params) {
+	for (let property in params) {
 		let encodedKey = encodeURIComponent(property);
 		let encodedValue = encodeURIComponent(params[property]);
 		formBody.push(encodedKey + "=" + encodedValue);
