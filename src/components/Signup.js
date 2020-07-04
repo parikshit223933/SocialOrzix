@@ -7,7 +7,7 @@ class Signup extends React.Component {
 				<h1 className="text-center">Sign Up</h1>
 				<fieldset>
 					<div className="form-group">
-						<label for="name">Name</label>
+						<label htmlFor="name">Name</label>
 						<input
 							type="text"
 							id="Name"
@@ -17,7 +17,7 @@ class Signup extends React.Component {
 						/>
 					</div>
 					<div className="form-group">
-						<label for="email">Email</label>
+						<label htmlFor="email">Email</label>
 						<input
 							type="text"
 							id="email"
@@ -27,7 +27,7 @@ class Signup extends React.Component {
 						/>
 					</div>
 					<div className="form-group">
-						<label for="password">New Password</label>
+						<label htmlFor="password">New Password</label>
 						<input
 							type="password"
 							id="password"
@@ -37,7 +37,7 @@ class Signup extends React.Component {
 						/>
 					</div>
 					<div className="form-group">
-						<label for="reenter-password">
+						<label htmlFor="reenter-password">
 							Re-enter your password
 						</label>
 						<input
