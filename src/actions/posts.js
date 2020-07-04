@@ -1,21 +1,21 @@
-import { UPDATE_POSTS } from './actionTypes';
-
+import { UPDATE_POSTS } from "./actionTypes";
+import { API_URLS } from "../helpers/urls";
 export function fetchPosts() {
-    return (dispatch) => {
-        const url = 'http://codeial.com:8000/api/v2/posts?page=1&limit=5';
-        fetch(url)
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                dispatch(updatePosts(data.data.posts));
-            });
-    };
+	return (dispatch) => {
+		const url = API_URLS.fetchPosts(1, 5);
+		fetch(url)
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				dispatch(updatePosts(data.data.posts));
+			});
+	};
 }
 
 export function updatePosts(posts) {
-    return {
-        type: UPDATE_POSTS,
-        posts,
-    };
+	return {
+		type: UPDATE_POSTS,
+		posts
+	};
 }
