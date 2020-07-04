@@ -1,11 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import website_logo from "../website logo.png";
 
 function Navbar(props) {
 	return (
 		<nav className="nav">
 			<div className="left-div">
-				<img src={website_logo} alt="logo" />
+				<Link to="/">
+					<img src={website_logo} alt="logo" />
+				</Link>
 			</div>
 			<div className="search-container">
 				<img
@@ -44,8 +48,15 @@ function Navbar(props) {
 				</div>
 				<div className="nav-links">
 					<ul>
-						<li>Log In</li>
-						<li>Log Out</li>
+						<li>
+							<Link to="/login">Log In</Link>
+						</li>
+						<li>
+							<Link to="logout">Log Out</Link>
+						</li>
+						<li>
+							<Link to="signup">SignUp</Link>
+						</li>
 					</ul>
 				</div>
 			</div>
