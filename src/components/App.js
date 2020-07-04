@@ -4,10 +4,9 @@ import PropTypes from "prop-types";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { fetchPosts } from "../actions/posts";
-import { Home, Navbar, Page404, Login } from "./";
+import { Home, Navbar, Page404, Login, Signup } from "./";
 
 /* const Login = () => <div>Login</div>; */
-const SignUp = () => <div>SignUp</div>;
 
 class App extends React.Component {
 	componentDidMount() {
@@ -30,7 +29,7 @@ class App extends React.Component {
 								); /* {history:history, location:location, match:match} */
 							}}
 						/>
-						<Route path="/signup" component={SignUp} />
+						<Route path="/signup" component={Signup} />
 						<Route path="/login" component={Login} />
 						<Route component={Page404} />
 					</Switch>
