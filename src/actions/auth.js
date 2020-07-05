@@ -4,7 +4,9 @@ import {
 	LOGIN_SUCCESS,
 	SIGNUP_START,
 	SIGNUP_SUCCESS,
-	SIGNUP_FAILURE
+	SIGNUP_FAILURE,
+	AUTHENTICATE_USER,
+	LOG_OUT
 } from "./actionTypes";
 import { API_URLS } from "../helpers/urls";
 import { getFormBody } from "../helpers/utils";
@@ -89,5 +91,18 @@ export function signup(name, email, password, confirm_password) {
 				}
 				dispatch(signUpFailed(data.message));
 			});
+	};
+}
+
+export function authenticateUser(user) {
+	return {
+		type: AUTHENTICATE_USER,
+		user
+	};
+}
+
+export function logOut() {
+	return {
+		type: LOG_OUT
 	};
 }

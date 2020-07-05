@@ -6,6 +6,7 @@ import * as jwtDecode from "jwt-decode";
 
 import { fetchPosts } from "../actions/posts";
 import { Home, Navbar, Page404, Login, Signup } from "./";
+import { authenticateUser } from "../actions/auth";
 
 /* const Login = () => <div>Login</div>; */
 
@@ -16,6 +17,13 @@ class App extends React.Component {
 		if (token) {
 			const user = jwtDecode(token);
 			console.log("user_details", user);
+			this.props.dispatch(
+				authenticateUser({
+					email: user.email,
+					name: user.name,
+					_id: user._id
+				})
+			);
 		}
 	}
 
