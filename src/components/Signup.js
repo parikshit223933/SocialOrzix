@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { signup } from "../actions/auth";
+import { Redirect } from "react-router-dom";
+import { signup, clearAuthState } from "../actions/auth";
 
 class Signup extends React.Component {
 	constructor(props) {
@@ -12,7 +13,9 @@ class Signup extends React.Component {
 			confirm_password: ""
 		};
 	}
-
+	componentWillUnmount() {
+		this.props.dispatch(clearAuthState());
+	}
 	handleInputChange = (field, value) => {
 		this.setState({ [field]: value });
 	};
@@ -24,7 +27,10 @@ class Signup extends React.Component {
 	};
 
 	render() {
-		const { inProgress, error } = this.props.auth;
+		const { inProgress, error, isLoggedIn } = this.props.auth;
+		if (isLoggedIn) {
+			return <Redirect to="/" />;
+		}
 		return (
 			<form className="col-md-6 offset-md-3 mt-5 pl-5 pr-5 pb-5 pt-4 bg-light">
 				<h1 className="text-center">Sign Up</h1>
