@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { editUser } from "../actions/auth";
+import { editUser, clearAuthState } from "../actions/auth";
 class Settings extends React.Component {
 	constructor(props) {
 		super(props);
@@ -17,9 +17,23 @@ class Settings extends React.Component {
 	};
 	handleSubmit = (event) => {
 		event.preventDefault();
-	};
-	render() {
+		const { name, password, confirm_password } = this.state;
 		const { user } = this.props.auth;
+		if (password !== confirm_password) {
+			window.alert(
+				'Please use same password in "Password" and "Confirm Password" field!'
+			);
+			return;
+		}
+		this.props.dispatch(
+			editUser(name, password, confirm_password, user._id)
+		);
+	};
+	componentWillUnmount() {
+		this.props.dispatch(clearAuthState());
+	}
+	render() {
+		const { user, error } = this.props.auth;
 		return (
 			<div className="container">
 				<div className="row">
@@ -76,6 +90,18 @@ class Settings extends React.Component {
 											</span>
 										</button>
 									</div>
+									{/* Error handling start */}
+									{error && (
+										<div className="alert error-dailog">
+											{error}
+										</div>
+									)}
+									{error === false && (
+										<div className="alert success-dailog">
+											Successfully updated profile!
+										</div>
+									)}
+									{/* error handling over */}
 									{/* modal body */}
 									<div className="modal-body">
 										<div className="form-group">

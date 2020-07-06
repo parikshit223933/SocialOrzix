@@ -135,8 +135,10 @@ export function editUser(name, password, confirmPassword, userId) {
 		const url = API_URLS.editProfile();
 		fetch(url, {
 			method: "POST",
-			headers: { "Content-Type": "application/x-www-form-urlencoded" },
-			Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`,
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded",
+				Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`
+			},
 			body: getFormBody({
 				name,
 				password,
@@ -144,9 +146,11 @@ export function editUser(name, password, confirmPassword, userId) {
 				id: userId
 			})
 		})
-			.then((response) => response.json())
+			.then((response) => {
+				return response.json();
+			})
 			.then((data) => {
-				console.log(data);
+				console.log("EDIT USER PROFILE DATA", data);
 				if (data.success) {
 					dispatch(editUserSuccessful(data.data.user));
 					if (data.data.token) {
