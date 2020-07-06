@@ -4,11 +4,16 @@ class Settings extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: "",
+			name: props.auth.user.name,
 			password: "",
 			confirm_password: ""
 		};
 	}
+	handleChange = (fieldName, value) => {
+		this.setState({
+			[fieldName]: value
+		});
+	};
 	render() {
 		const { user } = this.props.auth;
 		return (
@@ -69,43 +74,52 @@ class Settings extends React.Component {
 									</div>
 									{/* modal body */}
 									<div className="modal-body">
-										<div class="form-group">
-											<label for="name">Name</label>
+										<div className="form-group">
+											<label htmlFor="name">Name</label>
 											<input
 												type="text"
-												class="form-control"
+												className="form-control"
 												id="name"
 												aria-describedby="name"
-												onChange={() => {
-													this.handleChange();
+												onChange={(event) => {
+													this.handleChange(
+														"name",
+														event.target.value
+													);
 												}}
 												value={this.state.name}
 											/>
 										</div>
-										<div class="form-group">
-											<label for="password">
+										<div className="form-group">
+											<label htmlFor="password">
 												Password
 											</label>
 											<input
 												type="password"
-												class="form-control"
+												className="form-control"
 												id="passsword"
-												onChange={() => {
-													this.handleChange();
+												onChange={(event) => {
+													this.handleChange(
+														"password",
+														event.target.value
+													);
 												}}
 												value={this.state.password}
 											/>
 										</div>
-										<div class="form-group">
-											<label for="password">
+										<div className="form-group">
+											<label htmlFor="confirm_password">
 												Confirm Password
 											</label>
 											<input
 												type="password"
-												class="form-control"
-												id="passsword"
-												onChange={() => {
-													this.handleChange();
+												className="form-control"
+												id="confirm_password"
+												onChange={(event) => {
+													this.handleChange(
+														"confirm_password",
+														event.target.value
+													);
 												}}
 												value={
 													this.state.confirm_password
@@ -123,7 +137,7 @@ class Settings extends React.Component {
 										</button>
 										<button
 											type="submit"
-											class="btn btn-primary"
+											className="btn btn-primary"
 										>
 											Submit
 										</button>

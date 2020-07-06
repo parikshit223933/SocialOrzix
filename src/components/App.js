@@ -5,27 +5,29 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import * as jwtDecode from "jwt-decode";
 
 import { fetchPosts } from "../actions/posts";
-import { Home, Navbar, Page404, Login, Signup } from "./";
+import { Home, Navbar, Page404, Login, Signup, Settings } from "./";
 import { authenticateUser } from "../actions/auth";
 import { Redirect } from "react-router-dom";
-import Settings from "./Settings";
 
 /* const Login = () => <div>Login</div>; */
 
 const PrivateRoute = (privateRouteProps) => {
 	const { isLoggedIn, path, component: Component } = privateRouteProps; //Note: syntax to rename "component" to Component.
+	console.log(isLoggedIn);
 	return (
 		<Route
 			path={path}
 			render={(props) => {
 				return isLoggedIn ? (
-					<Component {...props} />
+					<Component
+						{...props}
+					/> /* here the props are, location, match, history */
 				) : (
 					<Redirect to="/login" />
 				);
 			}}
 		/>
-	); /* here the props are, location, match, history */
+	);
 };
 
 class App extends React.Component {
