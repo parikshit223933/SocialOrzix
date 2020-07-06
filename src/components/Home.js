@@ -5,7 +5,13 @@ class Home extends React.Component {
 		const { posts } = this.props;
 		return (
 			<div className="home">
-				<PostsList posts={posts} />
+				{posts.length === 0 ? (
+					<div className="ml-auto mr-auto">
+						<div className="loader"></div>
+					</div>
+				) : (
+					<PostsList posts={posts} />
+				)}
 			</div>
 		);
 	}

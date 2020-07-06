@@ -8,12 +8,12 @@ import { fetchPosts } from "../actions/posts";
 import { Home, Navbar, Page404, Login, Signup, Settings } from "./";
 import { authenticateUser } from "../actions/auth";
 import { Redirect } from "react-router-dom";
+import { getAuthTokenFromLocalStorage } from "../helpers/utils";
 
 /* const Login = () => <div>Login</div>; */
 
 const PrivateRoute = (privateRouteProps) => {
 	const { isLoggedIn, path, component: Component } = privateRouteProps; //Note: syntax to rename "component" to Component.
-	console.log(isLoggedIn);
 	return (
 		<Route
 			path={path}
@@ -38,7 +38,7 @@ const PrivateRoute = (privateRouteProps) => {
 class App extends React.Component {
 	componentDidMount() {
 		this.props.dispatch(fetchPosts());
-		const token = localStorage.getItem("token");
+		const token = getAuthTokenFromLocalStorage();
 		if (token) {
 			const user = jwtDecode(token);
 			this.props.dispatch(

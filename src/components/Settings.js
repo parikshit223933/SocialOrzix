@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { editUser } from "../actions/auth";
 class Settings extends React.Component {
 	constructor(props) {
 		super(props);
@@ -13,6 +14,9 @@ class Settings extends React.Component {
 		this.setState({
 			[fieldName]: value
 		});
+	};
+	handleSubmit = (event) => {
+		event.preventDefault();
 	};
 	render() {
 		const { user } = this.props.auth;
@@ -138,6 +142,7 @@ class Settings extends React.Component {
 										<button
 											type="submit"
 											className="btn btn-primary"
+											onClick={this.handleSubmit}
 										>
 											Submit
 										</button>
