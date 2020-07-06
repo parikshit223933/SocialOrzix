@@ -33,7 +33,7 @@ class Settings extends React.Component {
 		this.props.dispatch(clearAuthState());
 	}
 	render() {
-		const { user, error } = this.props.auth;
+		const { user, error, inProgress } = this.props.auth;
 		return (
 			<div className="container">
 				<div className="row">
@@ -169,8 +169,13 @@ class Settings extends React.Component {
 											type="submit"
 											className="btn btn-primary"
 											onClick={this.handleSubmit}
+											disabled={inProgress}
 										>
-											Submit
+											{inProgress ? (
+												<div className="loader"></div>
+											) : (
+												"Submit"
+											)}
 										</button>
 									</div>
 								</form>

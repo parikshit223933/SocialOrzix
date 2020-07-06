@@ -9,7 +9,8 @@ import {
 	LOG_OUT,
 	CLEAR_AUTH_STATE,
 	EDIT_USER_SUCCESSFUL,
-	EDIT_USER_FAILED
+	EDIT_USER_FAILED,
+	EDIT_USER_IN_PROGRESS
 } from "../actions/actionTypes";
 
 const initialAuthState = {
@@ -74,16 +75,23 @@ export default function auth(state = initialAuthState, action) {
 				...state,
 				error: null
 			};
+		case EDIT_USER_IN_PROGRESS:
+			return {
+				...state,
+				inProgress: true
+			};
 		case EDIT_USER_SUCCESSFUL:
 			return {
 				...state,
 				user: action.user,
-				error: false
+				error: false,
+				inProgress: false
 			};
 		case EDIT_USER_FAILED:
 			return {
 				...state,
-				error: action.error
+				error: action.error,
+				inProgress: false
 			};
 		default:
 			return state;

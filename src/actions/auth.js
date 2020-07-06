@@ -9,7 +9,8 @@ import {
 	LOG_OUT,
 	CLEAR_AUTH_STATE,
 	EDIT_USER_SUCCESSFUL,
-	EDIT_USER_FAILED
+	EDIT_USER_FAILED,
+	EDIT_USER_IN_PROGRESS
 } from "./actionTypes";
 import { API_URLS } from "../helpers/urls";
 import { getFormBody, getAuthTokenFromLocalStorage } from "../helpers/utils";
@@ -116,6 +117,12 @@ export function clearAuthState() {
 	};
 }
 
+export function editUserInProgress() {
+	return {
+		type: EDIT_USER_IN_PROGRESS
+	};
+}
+
 export function editUserSuccessful(user) {
 	return {
 		type: EDIT_USER_SUCCESSFUL,
@@ -132,6 +139,7 @@ export function editUserFailed(error) {
 
 export function editUser(name, password, confirmPassword, userId) {
 	return (dispatch) => {
+		dispatch(editUserInProgress());
 		const url = API_URLS.editProfile();
 		fetch(url, {
 			method: "POST",
