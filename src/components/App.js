@@ -8,9 +8,9 @@ import { fetchPosts } from "../actions/posts";
 import { Home, Navbar, Page404, Login, Signup } from "./";
 import { authenticateUser } from "../actions/auth";
 import { Redirect } from "react-router-dom";
+import Settings from "./Settings";
 
 /* const Login = () => <div>Login</div>; */
-const Settings = () => <div>Settings</div>;
 
 const PrivateRoute = (privateRouteProps) => {
 	const { isLoggedIn, path, component: Component } = privateRouteProps; //Note: syntax to rename "component" to Component.
@@ -34,7 +34,6 @@ class App extends React.Component {
 		const token = localStorage.getItem("token");
 		if (token) {
 			const user = jwtDecode(token);
-			console.log("user_details", user);
 			this.props.dispatch(
 				authenticateUser({
 					email: user.email,

@@ -525,3 +525,12 @@ nav .nav-links ul li:hover {
 #add-post-btn:hover {
 	cursor: pointer;
 }
+
+.user-image-contaner {
+	height: auto;
+	width: 50%;
+}
+.user-image-contaner > img {
+	height: 100%;
+	width: 100%;
+}
