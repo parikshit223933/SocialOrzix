@@ -23,7 +23,12 @@ const PrivateRoute = (privateRouteProps) => {
 						{...props}
 					/> /* here the props are, location, match, history */
 				) : (
-					<Redirect to="/login" />
+					<Redirect
+						to={{
+							pathname: "/login",
+							state: { from: props.location }
+						}}
+					/>
 				);
 			}}
 		/>

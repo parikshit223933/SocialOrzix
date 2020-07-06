@@ -40,8 +40,13 @@ class Login extends React.Component {
 
 	render() {
 		const { error, inProgress, isLoggedIn } = this.props.auth;
+
+		const { from } = this.props.location.state || {
+			from: "/" //we can also write it like this from: { pathname: "/" }. I mean to say that from can also be an object here with the key pathname.
+		};
+
 		if (isLoggedIn) {
-			return <Redirect to="/" />;
+			return <Redirect to={from} />;
 		}
 		return (
 			<form className="col-md-6 offset-md-3 mt-5 pl-5 pr-5 pb-5 pt-4 bg-light">
