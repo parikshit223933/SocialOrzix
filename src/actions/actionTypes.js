@@ -37,3 +37,6 @@ export const ADD_FRIEND='ADD_FRIEND';
 
 /* REMOVE FRIEND */
 export const REMOVE_FRIEND='REMOVE_FRIEND'
+
+/* ADD A NEW POST */
+export const ADD_POST='ADD_POST';

@@ -1,4 +1,6 @@
 import React from "react";
+import { createPost } from "../actions/posts";
+import { connect } from "react-redux";
 
 class CreatePost extends React.Component {
 	constructor(props) {
@@ -8,21 +10,27 @@ class CreatePost extends React.Component {
 		};
 	}
 	handleChange = (event) => {
-        this.setState({
-            content:event.target.value,
-        })
-    };
+		this.setState({
+			content: event.target.value
+		});
+	};
 	handleOnClick = () => {
-        //dispatch an action to create a post.
-    };
+		//dispatch an action to create a post.
+		if (document.getElementsByClassName("add-post")[0].value === "") {
+			window.alert("Please write some text in your post!");
+			return;
+		}
+		this.props.dispatch(createPost(this.state.content));
+		document.getElementsByClassName("add-post")[0].value = "";
+	};
 	render() {
 		return (
 			<div className="create-post">
 				<textarea
 					className="add-post"
 					value={this.state.content}
-                    onChange={this.handleChange}
-                    placeholder="What's on your mind?"
+					onChange={this.handleChange}
+					placeholder="What's on your mind?"
 				/>
 				<div>
 					<button
@@ -39,4 +47,4 @@ class CreatePost extends React.Component {
 	}
 }
 
-export default CreatePost;
+export default connect()(CreatePost); // it is totally up to me not to pass any function to the connect function, if we just want the dispatch function in our component.
