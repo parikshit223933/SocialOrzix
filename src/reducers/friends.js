@@ -2,7 +2,8 @@ import {
 	FETCH_FRIENDS_START,
 	FETCH_FRIENDS_SUCCCESS,
 	FETCH_FRIENDS_FAILURE,
-    ADD_FRIEND
+    ADD_FRIEND,
+    REMOVE_FRIEND
 } from "../actions/actionTypes";
 
 const defaultProfileState = {
@@ -38,6 +39,20 @@ export default function friends(state = defaultProfileState, action) {
             return {
                 ...state,
                 list:[action.user, ...state.list]
+            }
+        case REMOVE_FRIEND:
+            const new_list=[]
+            state.list.map((friendship)=>
+            {
+                if(friendship.from_user!==action.userId&&friendship.to_user._id!==action.userId)
+                {
+                    new_list.push(friendship);
+                }
+            });
+
+            return {
+                ...state,
+                list:new_list
             }
 		default:
 			return {

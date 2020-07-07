@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchUserProfile } from "../actions/profile";
-import { addFriend } from "../actions/friends";
+import { addFriend, removeFriend } from "../actions/friends";
 
 class UserProfile extends React.Component {
 	componentDidMount() {
@@ -13,7 +13,11 @@ class UserProfile extends React.Component {
 	}
 	handleAddFriend = () => {
 		this.props.dispatch(addFriend(this.props.match.params.userId));
-	};
+    };
+    handleRemoveFriend=()=>
+    {
+        this.props.dispatch(removeFriend(this.props.match.params.userId));
+    }
 	checkIfUserIsAFriend = () => {
 
         console.log(this.props.friends)
@@ -62,7 +66,7 @@ class UserProfile extends React.Component {
 							) : (
 								<button
 									type="button"
-									onClick={this.handleAddFriend}
+									onClick={this.handleRemoveFriend}
 									className="btn btn-danger"
 								>
 									Remove Friend

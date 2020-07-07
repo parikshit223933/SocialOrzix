@@ -2,7 +2,8 @@ import {
 	FETCH_FRIENDS_SUCCCESS,
 	FETCH_FRIENDS_START,
 	FETCH_FRIENDS_FAILURE,
-	ADD_FRIEND
+	ADD_FRIEND,
+    REMOVE_FRIEND
 } from "./actionTypes";
 import { API_URLS } from "../helpers/urls";
 import { getAuthTokenFromLocalStorage } from "../helpers/utils";
@@ -72,4 +73,36 @@ export function addFriend(userId) {
                 dispatch(addToFriendsList(data.data.friendship))
             });
 	};
+}
+
+export function removeFriendFromList(userId)
+{
+    return{
+        type:REMOVE_FRIEND,
+        userId
+    }
+}
+
+export function removeFriend(userId)
+{
+    return (dispatch)=>
+    {
+        const url=API_URLS.removeFriendship(userId);
+        fetch(url, {
+            method:'POST',
+            headers:{
+                'Content-Type':'application/x-www-form-urlencoded',
+                Authorization:`Bearer ${getAuthTokenFromLocalStorage()}`
+            }
+        })
+        .then(response=>response.json())
+        .then((data)=>
+        {
+            if(data.success)
+            {
+                dispatch(removeFriendFromList(userId))
+                return;
+            }
+        })
+    }
 }
