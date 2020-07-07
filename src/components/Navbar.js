@@ -63,17 +63,41 @@ class Navbar extends React.Component {
 						<ul>
 							{!auth.isLoggedIn && (
 								<li>
-									<Link to="/login">Log In</Link>
+									<Link
+										type="button"
+										className="btn btn-primary"
+										style={{ textDecoration: "none" }}
+										to="/login"
+									>
+										Log In
+									</Link>
 								</li>
 							)}
 
 							{auth.isLoggedIn && (
-								<li onClick={this.logOut}>Log Out</li>
+								<li
+									onClick={this.logOut}
+									type="button"
+									className="btn btn-dark"
+									style={{
+										textDecoration: "none",
+										padding: "5px 10px"
+									}}
+								>
+									Log Out
+								</li>
 							)}
 
 							{!auth.isLoggedIn && (
 								<li>
-									<Link to="/signup">SignUp</Link>
+									<Link
+										to="/signup"
+										type="button"
+										className="btn btn-success"
+										style={{ textDecoration: "none" }}
+									>
+										SignUp
+									</Link>
 								</li>
 							)}
 						</ul>

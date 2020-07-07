@@ -19,8 +19,6 @@ class UserProfile extends React.Component {
         this.props.dispatch(removeFriend(this.props.match.params.userId));
     }
 	checkIfUserIsAFriend = () => {
-
-        console.log(this.props.friends)
 		const userId = this.props.match.params.userId;
 		const {friends} = this.props;
 		const index = friends.list

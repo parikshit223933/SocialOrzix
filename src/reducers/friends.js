@@ -45,9 +45,10 @@ export default function friends(state = defaultProfileState, action) {
             state.list.map((friendship)=>
             {
                 if(friendship.from_user!==action.userId&&friendship.to_user._id!==action.userId)
-                {
+                {//When we are removing a friend, we need to check both to user and from user because a friendship can be a result of some other user sending us a friend request.
                     new_list.push(friendship);
                 }
+                return friendship;
             });
 
             return {

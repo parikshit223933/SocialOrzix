@@ -60,7 +60,6 @@ class App extends React.Component {
 			this.props.dispatch(fetchUserFriends());
 		}
 	}
-
 	render() {
 		const { posts, auth, friends } = this.props;
 		return (
