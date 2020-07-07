@@ -13,7 +13,6 @@ class UserProfile extends React.Component {
 
 	render() {
 		const {
-			match: { params },
 			profile
 		} = this.props;
 		const user = profile.user;

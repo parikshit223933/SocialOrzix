@@ -1,8 +1,9 @@
 import React from "react";
 import { PostsList } from "./";
+import {FriendsList} from "./";
 class Home extends React.Component {
 	render() {
-		const { posts } = this.props;
+		const { posts, isLoggedIn } = this.props;
 		return (
 			<div className="home">
 				{posts.length === 0 ? (
@@ -12,6 +13,7 @@ class Home extends React.Component {
 				) : (
 					<PostsList posts={posts} />
 				)}
+                {isLoggedIn && <FriendsList/>}
 			</div>
 		);
 	}

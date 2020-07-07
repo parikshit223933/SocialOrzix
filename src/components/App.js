@@ -17,6 +17,7 @@ import {
 import { authenticateUser } from "../actions/auth";
 import { Redirect } from "react-router-dom";
 import { getAuthTokenFromLocalStorage } from "../helpers/utils";
+import { fetchUserFriends } from "../actions/friends";
 
 /* const Login = () => <div>Login</div>; */
 
@@ -56,11 +57,12 @@ class App extends React.Component {
 					_id: user._id
 				})
 			);
+			this.props.dispatch(fetchUserFriends());
 		}
 	}
 
 	render() {
-		const { posts, auth } = this.props;
+		const { posts, auth, friends } = this.props;
 		return (
 			<Router>
 				<div>
@@ -71,7 +73,12 @@ class App extends React.Component {
 							path="/"
 							render={(props) => {
 								return (
-									<Home {...props} posts={posts} />
+									<Home
+										{...props}
+										posts={posts}
+										friends={friends.list}
+										isLoggedIn={auth.isLoggedIn}
+									/>
 								); /* {history:history, location:location, match:match} */
 							}}
 						/>
@@ -98,7 +105,8 @@ class App extends React.Component {
 function mapStateToProps(state) {
 	return {
 		posts: state.posts,
-		auth: state.auth
+		auth: state.auth,
+		friends: state.friends
 	};
 }
 
