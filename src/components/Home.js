@@ -1,6 +1,6 @@
 import React from "react";
-import { PostsList } from "./";
-import {FriendsList} from "./";
+import {FriendsList, PostsList} from "./";
+
 class Home extends React.Component {
 	render() {
 		const { posts, isLoggedIn } = this.props;
