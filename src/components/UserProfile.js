@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchUserProfile } from "../actions/profile";
+import { addFriend } from "../actions/friends";
 
 class UserProfile extends React.Component {
 	componentDidMount() {
@@ -8,13 +9,15 @@ class UserProfile extends React.Component {
 		if (match.params.userId) {
 			//dispatch an action to fetch that particular user
 			this.props.dispatch(fetchUserProfile(match.params.userId));
-		}
+        }
+        console.log('asasssssssssssssssssssss', this.props)
 	}
-
+    handleAddFriend=()=>
+    {
+        this.props.dispatch(addFriend(this.props.match.params.userId))
+    }
 	render() {
-		const {
-			profile
-		} = this.props;
+		const { profile } = this.props;
 		const user = profile.user;
 		// console.log(this.props.match.params.userId);
 		if (profile.inProgress) {
@@ -34,6 +37,11 @@ class UserProfile extends React.Component {
 							{user.name}
 						</div>
 						<div className="text-center my-2">{user.email}</div>
+						<div className="text-center my-3">
+							<button type="button" onClick={this.handleAddFriend} className="btn btn-success">
+								Add Friend
+							</button>
+						</div>
 					</div>
 					<div className="col-sm-8 bg-white mt-3">sdgsd</div>
 				</div>

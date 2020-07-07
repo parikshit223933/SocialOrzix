@@ -1,7 +1,8 @@
 import {
 	FETCH_FRIENDS_SUCCCESS,
 	FETCH_FRIENDS_START,
-	FETCH_FRIENDS_FAILURE
+	FETCH_FRIENDS_FAILURE,
+	ADD_FRIEND
 } from "./actionTypes";
 import { API_URLS } from "../helpers/urls";
 import { getAuthTokenFromLocalStorage } from "../helpers/utils";
@@ -46,5 +47,32 @@ export function fetchUserFriends() {
 				}
 				dispatch(fetchFriendsFailure(data.message));
 			});
+	};
+}
+
+export function addToFriendsList(user) {
+	return {
+		type: ADD_FRIEND,
+		user
+	};
+}
+
+export function addFriend(userId) {
+	return (dispatch) => {
+        const url = API_URLS.addFriend(userId);
+        console.log('url', url)
+		fetch(url, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded",
+				Authorization: `Bearer ${getAuthTokenFromLocalStorage()}`
+			}
+		})
+			.then((response) => response.json())
+            .then((data)=>
+            {
+                console.log(data.data)
+                dispatch(addToFriendsList(data.data.friendship))
+            });
 	};
 }

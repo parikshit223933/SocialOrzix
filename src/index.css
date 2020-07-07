@@ -313,9 +313,18 @@ nav .nav-links ul li:hover {
 .home {
 	padding: 20px 50px;
 	display: flex;
-	width: 80%;
+	width: 100%;
 	margin: 0 auto;
 }
+
+@media screen and (max-width:700px)
+{
+    .home
+    {
+        padding:20px 0px;
+    }
+}
+
 .home .posts-list {
 	flex-grow: 0.8;
 }
@@ -329,6 +338,18 @@ nav .nav-links ul li:hover {
 	border: 1px solid #e0e0e0;
 	border-radius: 4px;
 	overflow-y: scroll;
+}
+@media screen and (max-width:700px)
+{
+    .friends-list
+    {
+        margin-left:0px;
+        width:50%;
+    }
+}
+.friends-list::-webkit-scrollbar
+{
+    display:none;
 }
 .friends-list .header {
 	border-bottom: 1px solid #e0e0e0;

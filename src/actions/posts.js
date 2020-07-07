@@ -2,7 +2,7 @@ import { UPDATE_POSTS } from "./actionTypes";
 import { API_URLS } from "../helpers/urls";
 export function fetchPosts() {
 	return (dispatch) => {
-		const url = API_URLS.fetchPosts(1, 5);
+		const url = API_URLS.fetchPosts(1, 200);
 		fetch(url)
 			.then((response) => {
 				return response.json();

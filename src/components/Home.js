@@ -13,7 +13,7 @@ class Home extends React.Component {
 				) : (
 					<PostsList posts={posts} />
 				)}
-                {isLoggedIn && <FriendsList/>}
+                {isLoggedIn && <FriendsList friends={this.props.friends}/>}
 			</div>
 		);
 	}

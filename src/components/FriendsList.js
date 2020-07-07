@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import {FriendsListItem} from './';
 
 class FriendsList extends React.Component {
@@ -7,23 +6,18 @@ class FriendsList extends React.Component {
 		return (
 			<div className="friends-list">
 				<div className="header">Friends</div>
-				{this.props.friends.list &&
-					this.props.friends.list.length === 0 && (
+				{this.props.friends &&
+					this.props.friends.length === 0 && (
 						<div className="no-friends">No Friends Found!</div>
 					)}
                 
-                {this.props.friends.list && this.props.friends.list.map((friend)=>
+                {this.props.friends && this.props.friends.map((friend, index)=>
                 {   
-                    return <FriendsListItem friend={friend.to_user} key={friend._id}/>
+                    return <FriendsListItem friend={friend.to_user} key={index}/>
                 })}
 			</div>
 		);
 	}
 }
 
-function mapStateToProps({ friends }) {
-	return {
-		friends
-	};
-}
-export default connect(mapStateToProps)(FriendsList);
+export default FriendsList;

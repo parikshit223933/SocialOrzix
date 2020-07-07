@@ -1,7 +1,8 @@
 import {
 	FETCH_FRIENDS_START,
 	FETCH_FRIENDS_SUCCCESS,
-	FETCH_FRIENDS_FAILURE
+	FETCH_FRIENDS_FAILURE,
+    ADD_FRIEND
 } from "../actions/actionTypes";
 
 const defaultProfileState = {
@@ -32,8 +33,12 @@ export default function friends(state = defaultProfileState, action) {
 				inProgress: false,
 				error: action.error,
 				success: false,
-				list: []
-			};
+            };
+        case ADD_FRIEND:
+            return {
+                ...state,
+                list:[action.user, ...state.list]
+            }
 		default:
 			return {
 				...state

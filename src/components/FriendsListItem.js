@@ -5,6 +5,7 @@ class FriendsListItem extends React.Component
 {
     render()
     {
+        console.log('finallllllllllllllllllllllll', this.props)
         return(
             <div>
                 <Link className="friends-item" to={`user/${this.props.friend._id}`}>
