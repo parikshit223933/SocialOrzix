@@ -9,19 +9,33 @@ class UserProfile extends React.Component {
 		if (match.params.userId) {
 			//dispatch an action to fetch that particular user
 			this.props.dispatch(fetchUserProfile(match.params.userId));
-        }
+		}
 	}
-    handleAddFriend=()=>
-    {
-        this.props.dispatch(addFriend(this.props.match.params.userId))
-    }
+	handleAddFriend = () => {
+		this.props.dispatch(addFriend(this.props.match.params.userId));
+	};
+	checkIfUserIsAFriend = () => {
+
+        console.log(this.props.friends)
+		const userId = this.props.match.params.userId;
+		const {friends} = this.props;
+		const index = friends.list
+			.map((friend) => friend.to_user._id)
+			.indexOf(userId);
+		if (index !== -1) {
+			return true;
+		}
+		return false;
+	};
 	render() {
 		const { profile } = this.props;
 		const user = profile.user;
 		// console.log(this.props.match.params.userId);
 		if (profile.inProgress) {
 			return <div className="loader ml-auto mr-auto mt-5"></div>;
-		}
+        }
+        
+		const isUserAFriend = this.checkIfUserIsAFriend();
 		return (
 			<div className="container">
 				<div className="row">
@@ -37,9 +51,23 @@ class UserProfile extends React.Component {
 						</div>
 						<div className="text-center my-2">{user.email}</div>
 						<div className="text-center my-3">
-							<button type="button" onClick={this.handleAddFriend} className="btn btn-success">
-								Add Friend
-							</button>
+							{!isUserAFriend ? (
+								<button
+									type="button"
+									onClick={this.handleAddFriend}
+									className="btn btn-success"
+								>
+									Add Friend
+								</button>
+							) : (
+								<button
+									type="button"
+									onClick={this.handleAddFriend}
+									className="btn btn-danger"
+								>
+									Remove Friend
+								</button>
+							)}
 						</div>
 					</div>
 					<div className="col-sm-8 bg-white mt-3">sdgsd</div>
@@ -49,9 +77,10 @@ class UserProfile extends React.Component {
 	}
 }
 
-function mapStateToProps({ profile }) {
+function mapStateToProps({ profile, friends }) {
 	return {
-		profile
+        profile,
+        friends
 	};
 }
 
