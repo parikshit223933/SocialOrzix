@@ -19,7 +19,6 @@ class Login extends React.Component {
 	handleFormSubmit = (event) => {
 		event.preventDefault();
 		// console.log(this.emailInputRef, this.passwordInputRef);
-		console.log(this.state);
 		const { email, password } = this.state;
 		if (email && password) {
 			this.props.dispatch(login(email, password));

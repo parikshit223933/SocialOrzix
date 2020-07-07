@@ -45,7 +45,6 @@ export function login(email, password) {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log("data", data);
 				if (data.success) {
 					//dispatch an action to save the user.
 					localStorage.setItem("token", data.data.token);
@@ -158,7 +157,6 @@ export function editUser(name, password, confirmPassword, userId) {
 				return response.json();
 			})
 			.then((data) => {
-				console.log("EDIT USER PROFILE DATA", data);
 				if (data.success) {
 					dispatch(editUserSuccessful(data.data.user));
 					if (data.data.token) {

@@ -40,7 +40,6 @@ export function fetchUserFriends() {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data);
 				if (data.success) {
 					dispatch(fetchFriendsSuccess(data.data.friends));
 					return;
@@ -60,7 +59,6 @@ export function addToFriendsList(user) {
 export function addFriend(userId) {
 	return (dispatch) => {
         const url = API_URLS.addFriend(userId);
-        console.log('url', url)
 		fetch(url, {
 			method: "POST",
 			headers: {
@@ -71,7 +69,6 @@ export function addFriend(userId) {
 			.then((response) => response.json())
             .then((data)=>
             {
-                console.log(data.data)
                 dispatch(addToFriendsList(data.data.friendship))
             });
 	};
