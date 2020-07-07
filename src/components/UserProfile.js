@@ -1,15 +1,26 @@
 import React from "react";
+import { connect } from "react-redux";
+import { fetchUserProfile } from "../actions/profile";
 
 class UserProfile extends React.Component {
 	componentDidMount() {
 		const { match } = this.props;
 		if (match.params.userId) {
 			//dispatch an action to fetch that particular user
+			this.props.dispatch(fetchUserProfile(match.params.userId));
 		}
 	}
 
 	render() {
+		const {
+			match: { params },
+			profile
+		} = this.props;
+		const user = profile.user;
 		// console.log(this.props.match.params.userId);
+		if (profile.inProgress) {
+			return <div className="loader ml-auto mr-auto mt-5"></div>;
+		}
 		return (
 			<div className="container">
 				<div className="row">
@@ -21,11 +32,9 @@ class UserProfile extends React.Component {
 							/>
 						</div>
 						<div className="text-center my-3 text-capitalize">
-							USER NAME
+							{user.name}
 						</div>
-						<div className="text-center my-2">
-							EMAIL OF THE USER
-						</div>
+						<div className="text-center my-2">{user.email}</div>
 					</div>
 					<div className="col-sm-8 bg-white mt-3">sdgsd</div>
 				</div>
@@ -34,4 +43,10 @@ class UserProfile extends React.Component {
 	}
 }
 
-export default UserProfile;
+function mapStateToProps({ profile }) {
+	return {
+		profile
+	};
+}
+
+export default connect(mapStateToProps)(UserProfile);

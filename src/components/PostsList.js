@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 class PostsList extends React.Component {
 	render() {
 		const { posts } = this.props;
@@ -9,10 +10,12 @@ class PostsList extends React.Component {
 					<div className="post-wrapper" key={post._id}>
 						<div className="post-header">
 							<div className="post-avatar">
-								<img
-									src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
-									alt="user-pic"
-								/>
+								<Link to={`/user/${post.user._id}`}>
+									<img
+										src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+										alt="user-pic"
+									/>
+								</Link>
 								<div>
 									<span className="post-author">
 										{post.user.name}
