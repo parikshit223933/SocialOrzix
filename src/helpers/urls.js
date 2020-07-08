@@ -15,5 +15,6 @@ export const API_URLS = {
 	postCreator: () => `${API_ROOT}/posts/create`,
 	commentCreator: () => `${API_ROOT}/comments`,
 	likeToggler: (likeableId, likeableType) =>
-		`${API_ROOT}/likes/toggle?likeable_id=${likeableId}&likeable_type=${likeableType}`
+        `${API_ROOT}/likes/toggle?likeable_id=${likeableId}&likeable_type=${likeableType}`,
+    userSearch:(searchText)=>`${API_ROOT}/users/search?text=${searchText}`
 };

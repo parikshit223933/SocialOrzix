@@ -3,7 +3,6 @@ import {
 	ADD_POST,
 	ADD_COMMENT,
 	LIKE_POST,
-	LIKE_COMMENT
 } from "./actionTypes";
 import { API_URLS } from "../helpers/urls";
 import { getAuthTokenFromLocalStorage, getFormBody } from "../helpers/utils";
