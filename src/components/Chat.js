@@ -17,8 +17,46 @@ class Chat extends Component {
 		this.socket = io.connect("http://54.237.158.65:5000");
 		this.userEmail = props.user.email;
 
-		if (this.userEmail) {
+		/* if (this.userEmail) {
 			this.setupConnection();
+		} */
+	}
+
+	componentDidMount() {
+		if (this.userEmail) {
+			const socketConnection = this.socket;
+			const self = this;
+			this.socket.on("connect", function () {
+				console.log("Connection Established!");
+				socketConnection.emit("join_room", {
+					//for establishing a connextion between the user and the chat server
+					user_email: this.userEmail,
+					chatroom: "codeial"
+				});
+
+				socketConnection.on("user_joined", function (
+					data //server sends a message that user has joined
+				) {
+					console.log("New user Joined!", data);
+				});
+			});
+
+			this.socket.on("receive_message", function (data) {
+				//add message to state
+				const { messages } = self.state;
+				const messageObject = {};
+				messageObject.content = data.message;
+
+				if (data.user_email === self.userEmail) {
+					messageObject.self = true;
+				} else {
+					messageObject.self = false;
+				}
+				self.setState({
+					messages: [...messages, messageObject],
+					typedMessage: ""
+				});
+			});
 		}
 	}
 
@@ -59,10 +97,9 @@ class Chat extends Component {
 	};
 
 	handleSubmit = (event) => {
-        event.preventDefault();
+		event.preventDefault();
 		const { typedMessage } = this.state;
 		if (typedMessage && this.userEmail) {
-
 			this.socket.emit("send_message", {
 				message: typedMessage,
 				user_email: this.userEmail,
@@ -109,8 +146,8 @@ class Chat extends Component {
 								message.self
 									? "chat-bubble self-chat"
 									: "chat-bubble other-chat"
-                            }
-                            key={index}
+							}
+							key={index}
 						>
 							{message.content}
 						</div>
