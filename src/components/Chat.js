@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "../chat.css";
 import * as $ from "jquery";
+import io from "socket.io-client";
+import { connect } from "react-redux";
 
 class Chat extends Component {
 	constructor(props) {
@@ -11,7 +13,64 @@ class Chat extends Component {
 			typedMessage: "",
 			isMinimized: false
 		};
+
+		this.socket = io.connect("http://54.237.158.65:5000");
+		this.userEmail = props.user.email;
+
+		if (this.userEmail) {
+			this.setupConnection();
+		}
 	}
+
+	setupConnection = () => {
+		const socketConnection = this.socket;
+		const self = this;
+		this.socket.on("connect", function () {
+			console.log("Connection Established!");
+			socketConnection.emit("join_room", {
+				//for establishing a connextion between the user and the chat server
+				user_email: this.userEmail,
+				chatroom: "codeial"
+			});
+
+			socketConnection.on("user_joined", function (
+				data //server sends a message that user has joined
+			) {
+				console.log("New user Joined!", data);
+			});
+		});
+
+		this.socket.on("receive_message", function (data) {
+			//add message to state
+			const { messages } = self.state;
+			const messageObject = {};
+			messageObject.content = data.message;
+
+			if (data.user_email === self.userEmail) {
+				messageObject.self = true;
+			} else {
+				messageObject.self = false;
+			}
+			self.setState({
+				messages: [...messages, messageObject],
+				typedMessage: ""
+			});
+		});
+	};
+
+	handleSubmit = (event) => {
+        event.preventDefault();
+		const { typedMessage } = this.state;
+		if (typedMessage && this.userEmail) {
+
+			this.socket.emit("send_message", {
+				message: typedMessage,
+				user_email: this.userEmail,
+				chatroom: "codeial"
+			});
+		}
+	};
+
 	handleMinimize = () => {
 		if (!this.state.isMinimized) {
 			$(".chat-messages").addClass("d-none");
@@ -44,13 +103,14 @@ class Chat extends Component {
 					/>
 				</div>
 				<div className="chat-messages">
-					{messages.map((message) => (
+					{messages.map((message, index) => (
 						<div
 							className={
-								messages.self
+								message.self
 									? "chat-bubble self-chat"
 									: "chat-bubble other-chat"
-							}
+                            }
+                            key={index}
 						>
 							{message.content}
 						</div>
@@ -77,4 +137,8 @@ class Chat extends Component {
 	}
 }
 
-export default Chat;
+function mapStateToProps(state) {
+	return { user: state.auth.user };
+}
+
+export default connect(mapStateToProps)(Chat);
