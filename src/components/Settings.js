@@ -183,7 +183,7 @@ class Settings extends React.Component {
 						</div>
 						{/* MODAL END */}
 					</div>
-					<div className="col-sm-8 bg-white mt-3">sdgsd</div>
+					<div className="col-sm-8 bg-white mt-3"></div>
 				</div>
 			</div>
 		);

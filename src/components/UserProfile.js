@@ -82,7 +82,7 @@ class UserProfile extends React.Component {
 							)}
 						</div>
 					</div>
-					<div className="col-sm-8 bg-white mt-3">sdgsd</div>
+					<div className="col-sm-8 bg-white mt-3"></div>
 				</div>
 			</div>
 		);
