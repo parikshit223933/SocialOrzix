@@ -39,7 +39,7 @@ src
 │   index.css
 │   index.js
 │   website logo.png
-│<br>
+│
 ├───actions<br>
 │       actionTypes.js
 │       auth.js
@@ -90,7 +90,7 @@ src
 └───store
         index.js
 ```
-
+<hr>
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
