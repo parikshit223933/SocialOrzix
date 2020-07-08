@@ -4,14 +4,19 @@ import { connect } from "react-redux";
 
 import website_logo from "../website logo.png";
 import { logOut } from "../actions/auth";
+import { searchResults } from "../actions/search";
 
 class Navbar extends React.Component {
 	logOut = () => {
 		localStorage.removeItem("token");
 		this.props.dispatch(logOut());
 	};
+	handleSearch = (event) => {
+		const searchText = event.target.value;
+		this.props.dispatch(searchResults(searchText));
+	};
 	render() {
-		const { auth } = this.props;
+		const { auth, results } = this.props;
 		return (
 			<nav className="nav">
 				<div className="left-div">
@@ -25,25 +30,28 @@ class Navbar extends React.Component {
 						src="https://image.flaticon.com/icons/svg/483/483356.svg"
 						alt="search-icon"
 					/>
-					<input placeholder="search" />
-					<div className="search-results">
-						<ul>
-							<li className="search-results-row">
-								<img
-									src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
-									alt="user-dp"
-								/>
-								<span>John Doe</span>
-							</li>
-							<li className="search-results-row">
-								<img
-									src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
-									alt="user-dp"
-								/>
-								<span>John Doe</span>
-							</li>
-						</ul>
-					</div>
+					<input placeholder="search" onChange={this.handleSearch} />
+
+					{results.length > 0 && (
+						<div className="search-results">
+							<ul>
+								{results.map((user, index) => (
+									<Link to={`/user/${user._id}`}>
+										<li
+											className="search-results-row"
+											key={index}
+										>
+											<img
+												src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+												alt="user-dp"
+											/>
+											<span>{user.name}</span>
+										</li>
+									</Link>
+								))}
+							</ul>
+						</div>
+					)}
 				</div>
 				<div className="right-nav">
 					{auth.isLoggedIn && (
@@ -110,7 +118,8 @@ class Navbar extends React.Component {
 
 function mapStateToProps(state) {
 	return {
-		auth: state.auth
+		auth: state.auth,
+		results: state.search.users
 	};
 }
 

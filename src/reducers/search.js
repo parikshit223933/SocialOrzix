@@ -29,7 +29,8 @@ export default function search(state=initialSearchState, action)
                 ...state,
                 inProgress:false,
                 success:false,
-                error:action.error
+                error:action.error,
+                users:[]
             }
         default:
             return state;
