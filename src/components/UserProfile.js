@@ -10,7 +10,17 @@ class UserProfile extends React.Component {
 			//dispatch an action to fetch that particular user
 			this.props.dispatch(fetchUserProfile(match.params.userId));
 		}
-	}
+    }
+    componentDidUpdate(prevProps, prevState)
+    {
+        const {match:{params:prevParams}}=prevProps;
+        const {match:{params:currentParams}}=this.props;
+
+        if(prevParams&&currentParams&&prevParams.userId!==currentParams.userId)
+        {
+            this.props.dispatch(fetchUserProfile(currentParams.userId))
+        }
+    }
 	handleAddFriend = () => {
 		this.props.dispatch(addFriend(this.props.match.params.userId));
     };

@@ -13,7 +13,7 @@ class Navbar extends React.Component {
 	};
 	handleSearch = (event) => {
 		const searchText = event.target.value;
-		this.props.dispatch(searchResults(searchText));
+        this.props.dispatch(searchResults(searchText));
 	};
 	render() {
 		const { auth, results } = this.props;
@@ -36,7 +36,7 @@ class Navbar extends React.Component {
 						<div className="search-results">
 							<ul>
 								{results.map((user, index) => (
-									<Link to={`/user/${user._id}`}>
+									<Link to={`/user/${user._id}`} key={index}>
 										<li
 											className="search-results-row"
 											key={index}

@@ -1,4 +1,4 @@
-import { UPDATE_POSTS, ADD_POST, ADD_COMMENT, LIKE_COMMENT, LIKE_POST } from "../actions/actionTypes";
+import { UPDATE_POSTS, ADD_POST, ADD_COMMENT, LIKE_POST } from "../actions/actionTypes";
 
 export default function (state = [], action) {
 	switch (action.type) {
