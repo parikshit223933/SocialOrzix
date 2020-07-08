@@ -36,7 +36,7 @@ class CreatePost extends React.Component {
 					<button
 						type="button"
 						className="btn btn-success"
-						id="add-post-btn"
+						/* id="add-post-btn" */
 						onClick={this.handleOnClick}
 					>
 						Add Post
